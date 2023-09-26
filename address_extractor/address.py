@@ -87,6 +87,10 @@ def address_extraction(file_path):
             singapore_pattern=r"(\d+?[\s]?[A-Z][A-Za-z0-9\s]+)?,?[\s]+([#|No]?[0-9\-?]+?)?,?[\s][A-Z][A-Za-z\s]+,?[\s]?[Singapore]?\d{6}"
             uk_pattern=r"[A-Z]([A-za-a\s]+)?,?[\s]+?[0-9]+?[\s]+?[A-za-a\s]+?,?[\s]+?[A-Za-z0-9]{2,5}[\s\-][A-Za-z0-9]{2,5}"
             matches = re.findall(us_pattern, block[4], re.MULTILINE)
+            matches = matches.extend(re.findall(france_pattern, block[4], re.MULTILINE))
+            matches = matches.extend(re.findall(singapore_pattern, block[4], re.MULTILINE))
+            matches = matches.extend(re.findall(uk_pattern, block[4], re.MULTILINE))
+            
             if len(matches)>0:
                 possible_addresses=list(addresses.get_address_spans(str(block[4])))
                 # print(possible_addresses)
